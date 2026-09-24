@@ -1,0 +1,29 @@
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export function formatRupiah(amount: number): string {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+export function getShiftBadge(shiftName: string): { label: string; color: string } {
+  switch (shiftName.toUpperCase()) {
+    case "PAGI":
+      return { label: "PAGI (07:00 - 15:00)", color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30" };
+    case "SIANG":
+      return { label: "SIANG (15:00 - 23:00)", color: "bg-amber-500/10 text-amber-400 border-amber-500/30" };
+    case "MALAM":
+      return { label: "MALAM (23:00 - 07:00)", color: "bg-purple-500/10 text-purple-400 border-purple-500/30" };
+    case "LIBUR":
+      return { label: "OFF / LIBUR", color: "bg-slate-800 text-slate-400 border-slate-700" };
+    default:
+      return { label: shiftName, color: "bg-slate-800 text-slate-300 border-slate-700" };
+  }
+}
